@@ -1,18 +1,17 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import type { Configuration as DevServerConfiguration, Port } from "webpack-dev-server";
+import { VueLoaderPlugin } from 'vue-loader';
+import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
 type Mode = 'production' | 'development';
 
 interface EnvVariables {
   mode: Mode;
-  port: number
+  port: number;
 }
 
-
 export default (env: EnvVariables) => {
-
   const isDev = env.mode === 'development';
 
   const config: webpack.Configuration = {
@@ -24,26 +23,39 @@ export default (env: EnvVariables) => {
       clean: true,
     },
     plugins: [
-      new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }),
-      isDev ? new webpack.ProgressPlugin : undefined
+      new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, 'public', 'index.html'),
+      }),
+      isDev ? new webpack.ProgressPlugin() : undefined,
+      new VueLoaderPlugin(),
     ],
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.vue$/,
+          loader: 'vue-loader',
+        },
+        {
+          test: /\.css$/,
+          loader: 'css-loader',
+        },
+        {
+          test: /\.ts?$/,
           use: 'ts-loader',
           exclude: /node_modules/,
         },
       ],
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
+      extensions: ['.ts', '.js'],
     },
     devtool: isDev ? 'inline-source-map' : false,
-    devServer: isDev ? {
-      port: env.port ?? 3000,
-      open: true,
-    } : undefined
-  }
+    devServer: isDev
+      ? {
+          port: env.port ?? 3000,
+          open: true,
+        }
+      : undefined,
+  };
   return config;
 };

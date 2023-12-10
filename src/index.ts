@@ -1,4 +1,4 @@
-import { calc } from "./test"
+import { createApp } from 'vue';
+import App from './App.vue';
 
-console.log('hello world')
-console.log(calc(5, 5))
+createApp(App).mount('#app');
