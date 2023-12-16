@@ -1,10 +1,13 @@
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import { VueLoaderPlugin } from "vue-loader";
-import webpack, { Configuration } from "webpack";
-import { BuildOptions } from "./types/types";
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { VueLoaderPlugin } from 'vue-loader';
+import webpack, { Configuration } from 'webpack';
+import { BuildOptions } from './types/types';
 
-export function buildPlugins({mode, paths}: BuildOptions): Configuration['plugins'] {
+export function buildPlugins({
+  mode,
+  paths,
+}: BuildOptions): Configuration['plugins'] {
   const isDev = mode === 'development';
   const isProd = mode === 'production';
   const plugins: Configuration['plugins'] = [
@@ -12,18 +15,19 @@ export function buildPlugins({mode, paths}: BuildOptions): Configuration['plugin
       template: paths.html,
     }),
     new VueLoaderPlugin(),
-  ]
+  ];
 
-  if(isDev) {
-    plugins.push(new webpack.ProgressPlugin())
+  if (isDev) {
+    plugins.push(new webpack.ProgressPlugin());
   }
 
-  if(isProd) {
-    plugins.push(new MiniCssExtractPlugin({
-      filename: 'css/[name].[contenthash:8].css',
-      chunkFilename: 'css/[name].[contenthash:8].css'
-    }),
-    )
+  if (isProd) {
+    plugins.push(
+      new MiniCssExtractPlugin({
+        filename: 'css/[name].[contenthash:8].css',
+        chunkFilename: 'css/[name].[contenthash:8].css',
+      })
+    );
   }
 
   return plugins;
