@@ -21,5 +21,10 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     exclude: /node_modules/,
   };
 
-  return [vueLoader, cssLoader, tsLoader];
+  const assetLoader = {
+    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+    type: 'asset/resource',
+  };
+
+  return [vueLoader, cssLoader, tsLoader, assetLoader];
 }
