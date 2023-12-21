@@ -4,6 +4,8 @@ import { VueLoaderPlugin } from 'vue-loader';
 import { EsbuildPlugin } from 'esbuild-loader';
 import webpack, { Configuration } from 'webpack';
 import { BuildOptions } from './types/types';
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 export function buildPlugins({
   mode,
@@ -17,6 +19,7 @@ export function buildPlugins({
     }),
     new VueLoaderPlugin(),
     new EsbuildPlugin(),
+    new BundleAnalyzerPlugin(),
   ];
 
   if (isDev) {
