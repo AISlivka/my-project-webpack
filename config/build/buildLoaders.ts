@@ -10,15 +10,23 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     loader: 'vue-loader',
   };
 
+  const esbuildLoader = {
+    test: /\.[jt]sx?$/,
+    loader: 'esbuild-loader',
+    options: {
+      /**
+       * It's necessary to tell esbuild to use the 'js' loader
+       * because esbuild cannot auto-detect which loader to use
+       * based on the .vue extension.
+       */
+      loader: 'js',
+      target: 'es2015',
+    },
+  };
+
   const cssLoader = {
     test: /\.css$/i,
     use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
-  };
-
-  const tsLoader = {
-    test: /\.ts?$/,
-    use: 'ts-loader',
-    exclude: /node_modules/,
   };
 
   const assetLoader = {
@@ -31,5 +39,5 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     use: ['vue-loader', 'vue-svg-loader-2'],
   };
 
-  return [vueLoader, cssLoader, tsLoader, assetLoader, svgLoader];
+  return [vueLoader, esbuildLoader, cssLoader, assetLoader, svgLoader];
 }

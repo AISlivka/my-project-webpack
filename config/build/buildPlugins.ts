@@ -1,6 +1,7 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { VueLoaderPlugin } from 'vue-loader';
+import { EsbuildPlugin } from 'esbuild-loader';
 import webpack, { Configuration } from 'webpack';
 import { BuildOptions } from './types/types';
 
@@ -15,6 +16,7 @@ export function buildPlugins({
       template: paths.html,
     }),
     new VueLoaderPlugin(),
+    new EsbuildPlugin(),
   ];
 
   if (isDev) {

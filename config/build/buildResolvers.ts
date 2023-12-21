@@ -5,7 +5,7 @@ export function buildResolvers(
   options: BuildOptions
 ): Configuration['resolve'] {
   return {
-    extensions: ['.ts', '.js', '.vue'],
+    extensions: ['.ts', '.tsx', '.js', '.vue'],
     alias: {
       '@': options.paths.src,
     },
