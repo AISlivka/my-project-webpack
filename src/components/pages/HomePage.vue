@@ -8,7 +8,7 @@
       <img :src="imageJpeg" alt="jpeg" />
     </div>
     <div class="image">
-      <img :src="iconSvg" alt="svg" />
+      <iconSvg></iconSvg>
     </div>
   </div>
 
@@ -19,7 +19,7 @@
 import CHeader from '@/components/CHeader/CHeader.vue';
 import imagePng from '@/assets/images/image.png';
 import imageJpeg from '@/assets/images/image.jpeg';
-import iconSvg from '@/assets/images/icon.svg';
+import iconSvg from '@/assets/images/icon.svg?component';
 </script>
 
 <style>

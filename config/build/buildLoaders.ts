@@ -22,9 +22,14 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
   };
 
   const assetLoader = {
-    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+    test: /\.(png|jpg|jpeg|gif)$/i,
     type: 'asset/resource',
   };
 
-  return [vueLoader, cssLoader, tsLoader, assetLoader];
+  const svgLoader = {
+    test: /\.svg$/,
+    use: ['vue-loader', 'vue-svg-loader-2'],
+  };
+
+  return [vueLoader, cssLoader, tsLoader, assetLoader, svgLoader];
 }
