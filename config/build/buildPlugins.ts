@@ -4,12 +4,12 @@ import { VueLoaderPlugin } from 'vue-loader';
 import { EsbuildPlugin } from 'esbuild-loader';
 import webpack, { Configuration } from 'webpack';
 import { BuildOptions } from './types/types';
-const BundleAnalyzerPlugin =
-  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 export function buildPlugins({
   mode,
   paths,
+  analyzer,
 }: BuildOptions): Configuration['plugins'] {
   const isDev = mode === 'development';
   const isProd = mode === 'production';
@@ -19,7 +19,6 @@ export function buildPlugins({
     }),
     new VueLoaderPlugin(),
     new EsbuildPlugin(),
-    new BundleAnalyzerPlugin(),
   ];
 
   if (isDev) {
@@ -33,6 +32,10 @@ export function buildPlugins({
         chunkFilename: 'css/[name].[contenthash:8].css',
       })
     );
+  }
+
+  if (analyzer) {
+    plugins.push(new BundleAnalyzerPlugin());
   }
 
   return plugins;
