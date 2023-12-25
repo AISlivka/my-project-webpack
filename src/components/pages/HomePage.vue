@@ -17,10 +17,10 @@
 </template>
 
 <script setup>
-import CHeader from '@/components/CHeader/CHeader.vue';
-import imagePng from '@/assets/images/image.png';
-import imageJpeg from '@/assets/images/image.jpeg';
-import iconSvg from '@/assets/images/icon.svg?component';
+import CHeader from "@/components/CHeader/CHeader.vue"
+import imagePng from "@/assets/images/image.png"
+import imageJpeg from "@/assets/images/image.jpeg"
+import iconSvg from "@/assets/images/icon.svg?component"
 </script>
 
 <style>
