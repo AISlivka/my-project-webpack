@@ -1,5 +1,6 @@
 <template>
   <CHeader></CHeader>
+  <RouterLink to="/about"> СТРАНИЦА ABOUT </RouterLink>
   <div class="image__list">
     <div class="image">
       <img :src="imagePng" alt="png" />
