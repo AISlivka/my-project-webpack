@@ -36,6 +36,7 @@
   "dependencies": {
     "@vitejs/plugin-vue": "^4.5.2",
     "@vue/eslint-config-typescript": "^12.0.0",
+    "@vueuse/core": "^10.7.2",
     "autoprefixer": "^10.4.17",
     "axios": "^1.6.7",
     "css-loader": "^6.8.1",
