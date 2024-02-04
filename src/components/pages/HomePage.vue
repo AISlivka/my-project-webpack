@@ -21,6 +21,13 @@
       <button @click="submitJsonUseFetch">submitJsonUseFetch</button>
       <button @click="submitFormUseFetch">submitFormUseFetch</button>
     </div>
+    <h2>UseFetchInterceptor</h2>
+    <div class="home-page__buttons">
+      <button @click="submitUseFetchInterceptor">
+        submitUseFetchInterceptor
+      </button>
+      <button @click="submitAxiosInterceptor">submitAxiosInterceptor</button>
+    </div>
   </div>
 </template>
 
@@ -33,8 +40,88 @@ import { useFetch } from "@vueuse/core"
 
 const formData = ref(jsonPackage)
 
+// interceptors
+const submitAxiosInterceptor = async () => {
+  const formData = new URLSearchParams()
+  formData.append("name", "Andrey")
+  formData.append("surname", "Slivka")
+
+  axios.interceptors.request.use(
+    (config) => {
+      const formData = new URLSearchParams(config.data)
+      formData.set("name", "Adriano")
+      alert("name изменен: " + formData)
+      return config
+    },
+    (error) => {
+      alert("Ошибка запроса:", error)
+      return Promise.reject(error)
+    },
+  )
+
+  axios.interceptors.response.use(
+    (response) => {
+      response.value = "Данные в пути"
+      alert("axios.interceptors.response сработал: " + response.value)
+      return response
+    },
+    (error) => {
+      alert("Ошибка запроса:", error)
+      return Promise.reject(error)
+    },
+  )
+
+  try {
+    const response = await axios.post(
+      "http://localhost:3001/form-content",
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      },
+    )
+    alert("Форма Axios отправлена")
+  } catch (error) {
+    console.error("Ошибка Axios формы:", error)
+  }
+}
+
+const submitUseFetchInterceptor = async () => {
+  const { statusCode } = await useFetch(
+    "http://localhost:3001/form-content",
+    {
+      body: new URLSearchParams({
+        name: "Andrey",
+        surname: "Slivka",
+      }),
+    },
+    {
+      beforeFetch({ options }) {
+        options.body.set("name", "Adriano")
+        options.headers = {
+          ...options.headers,
+          ["Content-Type"]: "application/x-www-form-urlencoded",
+        }
+        alert("beforeFetch сработал: заменен name")
+        return { options }
+      },
+      afterFetch({ response }) {
+        response.value = "Данные в пути"
+        alert("afterFetch сработал: " + response.value)
+        return { response }
+      },
+    },
+  ).post()
+  if (statusCode.value === 200) {
+    alert("Данные получены")
+  } else {
+    console.error("Ошибка useFetch формы:", error)
+  }
+}
+
 // useFetch
-const submitJsonUseFetch = async () => {
+const submitFormUseFetch = async () => {
   const { statusCode } = await useFetch(
     "http://localhost:3001/form-content",
     {
@@ -60,7 +147,7 @@ const submitJsonUseFetch = async () => {
   }
 }
 
-const submitFormUseFetch = async () => {
+const submitJsonUseFetch = async () => {
   const { statusCode } = await useFetch(
     "http://localhost:3001/form-json",
     {
