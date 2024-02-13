@@ -50,11 +50,12 @@ const submitAxiosInterceptor = async () => {
     (config) => {
       const formData = new URLSearchParams(config.data)
       formData.set("name", "Adriano")
+      config.data = formData
       alert("name изменен: " + formData)
       return config
     },
     (error) => {
-      alert("Ошибка запроса:", error)
+      console.log("Ошибка запроса:", error)
       return Promise.reject(error)
     },
   )
@@ -66,7 +67,7 @@ const submitAxiosInterceptor = async () => {
       return response
     },
     (error) => {
-      alert("Ошибка запроса:", error)
+      console.log("Ошибка запроса:", error)
       return Promise.reject(error)
     },
   )
