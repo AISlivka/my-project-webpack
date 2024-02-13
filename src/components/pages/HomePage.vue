@@ -1,6 +1,16 @@
 <template>
   <CHeader></CHeader>
-  <RouterLink to="/about"> СТРАНИЦА ABOUT </RouterLink>
+  <div>
+    <RouterLink :to="{ name: ROUTE_NAMES.ABOUT_PAGE }">
+      СТРАНИЦА ABOUT
+    </RouterLink>
+  </div>
+  <div>
+    <RouterLink to="/ru/test-page"> СТРАНИЦА TEST </RouterLink>
+  </div>
+  <div>
+    <RouterLink to="/en/test-page"> СТРАНИЦА TEST </RouterLink>
+  </div>
 
   <div class="home-page">
     <h2>Fetch API</h2>
@@ -37,6 +47,7 @@ import CHeader from "@/components/CHeader/CHeader.vue"
 import jsonPackage from "/package.json"
 import axios from "axios"
 import { useFetch } from "@vueuse/core"
+import { ROUTE_NAMES } from "@/constants/RouteNames"
 
 const formData = ref(jsonPackage)
 
