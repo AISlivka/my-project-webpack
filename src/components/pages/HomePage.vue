@@ -6,10 +6,10 @@
     </RouterLink>
   </div>
   <div>
-    <RouterLink to="/ru/test-page"> СТРАНИЦА TEST </RouterLink>
+    <RouterLink to="/ru/test-page"> СТРАНИЦА TEST RU </RouterLink>
   </div>
   <div>
-    <RouterLink to="/en/test-page"> СТРАНИЦА TEST </RouterLink>
+    <RouterLink to="/en/test-page"> СТРАНИЦА TEST EN </RouterLink>
   </div>
 
   <div class="home-page">

@@ -4,15 +4,23 @@ import "@/assets/styles/index.css"
 import App from "./App.vue"
 import routes from "./router/routes"
 import { createI18n } from "vue-i18n"
+import { I18nLocale } from "@/assets/locales/I18nLocale"
+import { ru } from "@/assets/locales/ru"
+import { en } from "@/assets/locales/en"
 
-const i18n = createI18n({
+const messages = {
+  ru,
+  en,
+}
+
+export const i18n = createI18n<[I18nLocale], "ru" | "en">({
   locale: "ru",
   legacy: false,
   fallbackLocale: "en",
-  messages: {
-    ru: require("@/assets/locales/ru.ts"),
-    en: require("@/assets/locales/en.ts"),
-  },
+  messages,
 })
 
-createApp(App).use(routes).use(i18n).mount("#app")
+const app = createApp(App)
+app.use(i18n)
+app.use(routes)
+app.mount("#app")
