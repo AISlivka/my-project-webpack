@@ -21,6 +21,6 @@ export const i18n = createI18n<[I18nLocale], "ru" | "en">({
 })
 
 const app = createApp(App)
-app.use(i18n)
 app.use(routes)
+app.use(i18n)
 app.mount("#app")
