@@ -3,6 +3,7 @@ import "normalize.css"
 import "@/assets/styles/index.css"
 import App from "./App.vue"
 import routes from "./router/routes"
+import { store } from "./store"
 import { createI18n } from "vue-i18n"
 import { I18nLocale } from "@/assets/locales/I18nLocale"
 import { ru } from "@/assets/locales/ru"
@@ -22,5 +23,6 @@ export const i18n = createI18n<[I18nLocale], "ru" | "en">({
 
 const app = createApp(App)
 app.use(routes)
+app.use(store)
 app.use(i18n)
 app.mount("#app")
