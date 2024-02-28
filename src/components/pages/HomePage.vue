@@ -1,15 +1,19 @@
 <template>
   <CHeader></CHeader>
+  {{ $t("title") }}
   <div>
     <RouterLink :to="{ name: ROUTE_NAMES.ABOUT_PAGE }">
       СТРАНИЦА ABOUT
     </RouterLink>
   </div>
   <div>
-    <RouterLink to="/ru/test-page"> СТРАНИЦА TEST RU </RouterLink>
+    <RouterLink to="/login-page"> СТРАНИЦА LOGIN </RouterLink>
   </div>
   <div>
-    <RouterLink to="/en/test-page"> СТРАНИЦА TEST EN </RouterLink>
+    <RouterLink to="/dashboard"> СТРАНИЦА DASHBOARD </RouterLink>
+  </div>
+  <div>
+    <RouterLink to="/dashboard/movies"> СТРАНИЦА DASHBOARD/MOVIES </RouterLink>
   </div>
 
   <div class="home-page">

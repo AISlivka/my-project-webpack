@@ -4,6 +4,7 @@ import "@/assets/styles/index.css"
 import App from "./App.vue"
 import routes from "./router/routes"
 import { store } from "./store"
+
 import { createI18n } from "vue-i18n"
 import { I18nLocale } from "@/assets/locales/I18nLocale"
 import { ru } from "@/assets/locales/ru"
@@ -14,10 +15,12 @@ const messages = {
   en,
 }
 
+const localeStorageLang = localStorage.getItem("lang")
+
 export const i18n = createI18n<[I18nLocale], "ru" | "en">({
-  locale: "ru",
   legacy: false,
   fallbackLocale: "en",
+  locale: localeStorageLang || "en",
   messages,
 })
 
