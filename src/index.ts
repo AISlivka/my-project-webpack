@@ -15,7 +15,8 @@ const messages = {
   en,
 }
 
-const localeStorageLang = localStorage.getItem("lang")
+export const localeStorageLang = localStorage.getItem("lang")
+console.log(localeStorageLang)
 
 export const i18n = createI18n<[I18nLocale], "ru" | "en">({
   legacy: false,

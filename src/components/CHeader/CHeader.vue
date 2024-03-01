@@ -1,7 +1,10 @@
 <template>
   <div class="header">
     <h1>{{ $t("title") }}</h1>
-    <button @click="switchLang">{{ $t("switchLang") }}</button>
+    <div class="header__btns">
+      <button class="header-button" @click="switchLangRu">RU</button>
+      <button class="header-button" @click="switchLangEn">EN</button>
+    </div>
   </div>
 </template>
 
@@ -9,8 +12,13 @@
 import { useI18n } from "vue-i18n"
 const { locale } = useI18n({ useScope: "global" })
 
-const switchLang = () => {
-  locale.value === "en" ? (locale.value = "ru") : (locale.value = "en")
+const switchLangRu = () => {
+  locale.value = "ru"
+  localStorage.setItem("lang", locale.value)
+}
+
+const switchLangEn = () => {
+  locale.value = "en"
   localStorage.setItem("lang", locale.value)
 }
 </script>
@@ -24,5 +32,25 @@ const switchLang = () => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+}
+
+.header__btns {
+  display: flex;
+  column-gap: 16px;
+}
+
+.header-button {
+  cursor: pointer;
+  border: 1px solid grey;
+  padding: 4px 12px;
+  transition: 0.2s ease-in-out;
+}
+
+.header-button:hover {
+  background: grey;
+}
+
+.header-button:active {
+  background: limegreen;
 }
 </style>

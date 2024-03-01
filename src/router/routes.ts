@@ -10,7 +10,6 @@ import { store } from "@/store"
 
 import HomePage from "@/components/pages/HomePage.vue"
 import AboutPage from "@/components/pages/AboutPage.vue"
-import TestPage from "@/components/pages/TestPage.vue"
 import LoginPage from "@/components/pages/LoginPage.vue"
 import MoviesPage from "@/components/pages/MoviesPage.vue"
 import DashboardPage from "@/components/pages/DashboardPage.vue"
@@ -30,11 +29,6 @@ const routes: RouteRecordRaw[] = [
     path: "/about-page",
     name: ROUTE_NAMES.ABOUT_PAGE,
     component: AboutPage,
-  },
-  {
-    path: "/:lang/test-page",
-    name: ROUTE_NAMES.TEST_PAGE,
-    component: TestPage,
   },
   {
     path: "/login-page",
