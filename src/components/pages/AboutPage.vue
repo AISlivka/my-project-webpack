@@ -5,5 +5,5 @@
 </template>
 
 <script setup>
-import CHeader from "@/components/CHeader/CHeader.vue"
+import CHeader from '@/components/CHeader/CHeader.vue'
 </script>

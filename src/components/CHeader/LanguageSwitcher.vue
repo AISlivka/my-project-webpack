@@ -14,32 +14,16 @@
 
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n"
-// import Trans from "@/i18n/translation"
+import Tr from "@/i18n/translation"
 
-const { locale } = useI18n({ useScope: "global" })
+const { locale } = useI18n()
 
-const Trans = {
-  get supportedLocales() {
-    return "en,ru".split(",")
-  },
-
-  set currentLocale(newLocale: any) {
-    locale.value = newLocale
-  },
-
-  async switchLanguage(newLocale: any) {
-    Trans.currentLocale = newLocale
-    document.querySelector("html").setAttribute("lang", newLocale)
-    localStorage.setItem("user-locale", newLocale)
-  },
-}
-
-const supportedLocales = Trans.supportedLocales
+const supportedLocales = Tr.supportedLocales
 
 const switchLanguage = async (event: any) => {
   const newLocale = event.target.value
 
-  await Trans.switchLanguage(newLocale)
+  await Tr.switchLanguage(newLocale)
 }
 
 console.log(supportedLocales)

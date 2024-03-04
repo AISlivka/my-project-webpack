@@ -1,4 +1,4 @@
-import { MiddlewareContext, MiddlewareFunction } from "./routes"
+import { MiddlewareContext, MiddlewareFunction } from './routes'
 
 function middlewarePipeline(
   context: MiddlewareContext,

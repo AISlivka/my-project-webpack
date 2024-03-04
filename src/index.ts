@@ -1,10 +1,10 @@
-import { createApp } from "vue"
-import "normalize.css"
-import "@/assets/styles/index.css"
-import App from "./App.vue"
-import routes from "./router/routes"
-import { store } from "./store"
-import I18n from "@/i18n"
+import { createApp } from 'vue'
+import 'normalize.css'
+import '@/assets/styles/index.css'
+import App from './App.vue'
+import routes from './router/routes'
+import { store } from './store'
+import I18n from '@/i18n'
 
 // import { createI18n } from "vue-i18n"
 // import { I18nLocale } from "@/assets/locales/I18nLocale"
@@ -30,4 +30,4 @@ const app = createApp(App)
 app.use(routes)
 app.use(store)
 app.use(I18n)
-app.mount("#app")
+app.mount('#app')

@@ -5,41 +5,41 @@ import {
   RouteLocationNormalized,
   NavigationGuardNext,
   RouterView,
-} from "vue-router"
-import { ROUTE_NAMES } from "@/constants/RouteNames"
-import { store } from "@/store"
+} from 'vue-router'
+import { ROUTE_NAMES } from '@/constants/RouteNames'
+import { store } from '@/store'
 
-import HomePage from "@/components/pages/HomePage.vue"
-import AboutPage from "@/components/pages/AboutPage.vue"
-import LoginPage from "@/components/pages/LoginPage.vue"
-import MoviesPage from "@/components/pages/MoviesPage.vue"
-import DashboardPage from "@/components/pages/DashboardPage.vue"
+import HomePage from '@/components/pages/HomePage.vue'
+import AboutPage from '@/components/pages/AboutPage.vue'
+import LoginPage from '@/components/pages/LoginPage.vue'
+import MoviesPage from '@/components/pages/MoviesPage.vue'
+import DashboardPage from '@/components/pages/DashboardPage.vue'
 
-import guest from "@/router/middleware/guest"
-import auth from "@/router/middleware/auth"
-import isSubscribed from "@/router/middleware/isSubscribed"
-import middlewarePipeline from "@/router/middlewarePipeline"
+import guest from '@/router/middleware/guest'
+import auth from '@/router/middleware/auth'
+import isSubscribed from '@/router/middleware/isSubscribed'
+import middlewarePipeline from '@/router/middlewarePipeline'
 
-import Trans from "@/i18n/translation"
+import Tr from '@/i18n/translation'
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/:locale?",
+    path: '/:locale?',
     component: RouterView,
-    beforeEnter: Trans.routeMiddleware,
+    beforeEnter: Tr.routeMiddleware,
     children: [
       {
-        path: "",
+        path: '',
         name: ROUTE_NAMES.HOME_PAGE,
         component: HomePage,
       },
       {
-        path: "about-page",
+        path: 'about-page',
         name: ROUTE_NAMES.ABOUT_PAGE,
         component: AboutPage,
       },
       {
-        path: "login-page",
+        path: 'login-page',
         name: ROUTE_NAMES.LOGIN_PAGE,
         component: LoginPage,
         meta: {
@@ -47,7 +47,7 @@ const routes: RouteRecordRaw[] = [
         },
       },
       {
-        path: "dashboard",
+        path: 'dashboard',
         name: ROUTE_NAMES.DASHBOARD_PAGE,
         component: DashboardPage,
         meta: {
@@ -55,7 +55,7 @@ const routes: RouteRecordRaw[] = [
         },
         children: [
           {
-            path: "dashboard/movies",
+            path: 'dashboard/movies',
             name: ROUTE_NAMES.MOVIES_PAGE,
             component: MoviesPage,
             meta: {
@@ -69,7 +69,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  history: createWebHistory("/"),
+  history: createWebHistory('/'),
   routes,
 })
 

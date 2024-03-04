@@ -1,17 +1,17 @@
-import i18n from "@/i18n"
+import i18n from '@/i18n'
 
 const Trans = {
   get supportedLocales() {
-    return "en,ru".split(",")
+    return 'en,ru'.split(',')
   },
 
-  set currentLocale(newLocale: any) {
+  set currentLocale(newLocale: 'en' | 'ru') {
     i18n.global.locale.value = newLocale
   },
 
-  async switchLanguage(newLocale: any) {
+  async switchLanguage(newLocale: 'en' | 'ru') {
     Trans.currentLocale = newLocale
-    document.querySelector("html").setAttribute("lang", newLocale)
+    document.querySelector('html').setAttribute('lang', newLocale)
   },
 
   async routeMiddleware(to: any, _from: any, next: any) {
