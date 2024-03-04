@@ -1,6 +1,14 @@
 <template>
   <div class="header">
-    <h1>{{ $t("title") }}</h1>
+    <div class="header-nav">
+      <RouterLink :to="{ name: ROUTE_NAMES.HOME_PAGE }">
+        {{ $t("homePage") }}
+      </RouterLink>
+      <RouterLink :to="{ name: ROUTE_NAMES.ABOUT_PAGE }">
+        {{ $t("aboutPage") }}
+      </RouterLink>
+    </div>
+    <LanguageSwitcher />
     <div class="header__btns">
       <button class="header-button" @click="switchLangRu">RU</button>
       <button class="header-button" @click="switchLangEn">EN</button>
@@ -10,6 +18,8 @@
 
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n"
+import { ROUTE_NAMES } from "@/constants/RouteNames"
+import LanguageSwitcher from "@/components/CHeader/LanguageSwitcher.vue"
 const { locale } = useI18n({ useScope: "global" })
 
 const switchLangRu = () => {
@@ -52,5 +62,10 @@ const switchLangEn = () => {
 
 .header-button:active {
   background: limegreen;
+}
+
+.header-nav {
+  display: flex;
+  column-gap: 12px;
 }
 </style>

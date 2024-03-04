@@ -1,9 +1,10 @@
 import {
   createRouter,
-  createWebHashHistory,
+  createWebHistory,
   RouteRecordRaw,
   RouteLocationNormalized,
   NavigationGuardNext,
+  RouterView,
 } from "vue-router"
 import { ROUTE_NAMES } from "@/constants/RouteNames"
 import { store } from "@/store"
@@ -19,47 +20,56 @@ import auth from "@/router/middleware/auth"
 import isSubscribed from "@/router/middleware/isSubscribed"
 import middlewarePipeline from "@/router/middlewarePipeline"
 
+import Trans from "@/i18n/translation"
+
 const routes: RouteRecordRaw[] = [
   {
-    path: "/",
-    name: ROUTE_NAMES.HOME_PAGE,
-    component: HomePage,
-  },
-  {
-    path: "/about-page",
-    name: ROUTE_NAMES.ABOUT_PAGE,
-    component: AboutPage,
-  },
-  {
-    path: "/login-page",
-    name: ROUTE_NAMES.LOGIN_PAGE,
-    component: LoginPage,
-    meta: {
-      middleware: [guest],
-    },
-  },
-  {
-    path: "/dashboard",
-    name: ROUTE_NAMES.DASHBOARD_PAGE,
-    component: DashboardPage,
-    meta: {
-      middleware: [auth],
-    },
+    path: "/:locale?",
+    component: RouterView,
+    beforeEnter: Trans.routeMiddleware,
     children: [
       {
-        path: "/dashboard/movies",
-        name: ROUTE_NAMES.MOVIES_PAGE,
-        component: MoviesPage,
+        path: "",
+        name: ROUTE_NAMES.HOME_PAGE,
+        component: HomePage,
+      },
+      {
+        path: "about-page",
+        name: ROUTE_NAMES.ABOUT_PAGE,
+        component: AboutPage,
+      },
+      {
+        path: "login-page",
+        name: ROUTE_NAMES.LOGIN_PAGE,
+        component: LoginPage,
         meta: {
-          middleware: [auth, isSubscribed],
+          middleware: [guest],
         },
+      },
+      {
+        path: "dashboard",
+        name: ROUTE_NAMES.DASHBOARD_PAGE,
+        component: DashboardPage,
+        meta: {
+          middleware: [auth],
+        },
+        children: [
+          {
+            path: "dashboard/movies",
+            name: ROUTE_NAMES.MOVIES_PAGE,
+            component: MoviesPage,
+            meta: {
+              middleware: [auth, isSubscribed],
+            },
+          },
+        ],
       },
     ],
   },
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory("/"),
   routes,
 })
 

@@ -6,7 +6,7 @@
       СТРАНИЦА ABOUT
     </RouterLink>
   </div>
-  <div>
+  <!-- <div>
     <RouterLink to="/login-page"> СТРАНИЦА LOGIN </RouterLink>
   </div>
   <div>
@@ -14,9 +14,9 @@
   </div>
   <div>
     <RouterLink to="/dashboard/movies"> СТРАНИЦА DASHBOARD/MOVIES </RouterLink>
-  </div>
+  </div> -->
 
-  <div class="home-page">
+  <!-- <div class="home-page">
     <h2>Fetch API</h2>
     <div class="home-page__buttons">
       <input type="file" @input="onImageUploadedFetchApi" />
@@ -42,7 +42,7 @@
       </button>
       <button @click="submitAxiosInterceptor">submitAxiosInterceptor</button>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup>
