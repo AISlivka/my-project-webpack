@@ -2,8 +2,8 @@
 import { UnionMiddlewareContext } from '../routes'
 
 export default function guest(options: UnionMiddlewareContext) {
-  const { next, store, nextMiddleware } = options
-  if (!store.getters.auth.loggedIn) {
+  const { next, useCounterStore, nextMiddleware } = options
+  if (!useCounterStore.getters.auth.loggedIn) {
     return next({
       name: 'dashboard',
     })

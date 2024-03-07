@@ -1,22 +1,54 @@
-import { createApp } from 'vue'
-import { createStore } from 'vuex'
+// stores/counter.js
 
-export const store = createStore({
-  state() {
-    return {
-      user: {
-        loggedIn: false,
-        isSubscribed: false,
-      },
-    }
-  },
-  getters: {
-    auth(state) {
-      return state.user
-    },
-  },
+import { defineStore } from 'pinia'
+import { computed, ref } from 'vue'
+
+// export const useCounterStore = defineStore('counter', {
+//   state: () => {
+//     return {
+//       user: {
+//         loggedIn: false,
+//         isSubscribed: false,
+//       },
+//     }
+//   },
+//   getters: {
+//     auth(state) {
+//       return state.user
+//     },
+//   },
+// })
+
+export const useCounterStore = defineStore('counter', () => {
+  const count = ref(0)
+  const name = ref('Иван')
+  const doubleCount = computed(() => count.value * 2)
+  function increment() {
+    count.value++
+  }
+
+  return { count, name, doubleCount, increment }
 })
 
-const app = createApp({})
+// import { createApp } from 'vue'
+// import { createStore } from 'vuex'
 
-app.use(store)
+// export const store = createStore({
+//   state() {
+//     return {
+//       user: {
+//         loggedIn: false,
+//         isSubscribed: false,
+//       },
+//     }
+//   },
+//   getters: {
+//     auth(state) {
+//       return state.user
+//     },
+//   },
+// })
+
+// const app = createApp({})
+
+// app.use(store)

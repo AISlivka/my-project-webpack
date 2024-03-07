@@ -7,7 +7,7 @@ import {
   RouterView,
 } from 'vue-router'
 import { ROUTE_NAMES } from '@/constants/RouteNames'
-import { store } from '@/store'
+import { useCounterStore } from '@/store'
 
 import HomePage from '@/components/pages/HomePage.vue'
 import AboutPage from '@/components/pages/AboutPage.vue'
@@ -20,13 +20,13 @@ import auth from '@/router/middleware/auth'
 import isSubscribed from '@/router/middleware/isSubscribed'
 import middlewarePipeline from '@/router/middlewarePipeline'
 
-import Tr from '@/i18n/translation'
+// import Tr from '@/i18n/translation'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/:locale?',
     component: RouterView,
-    beforeEnter: Tr.routeMiddleware,
+    // beforeEnter: Tr.routeMiddleware,
     children: [
       {
         path: '',
@@ -77,7 +77,7 @@ export interface MiddlewareContext {
   to: RouteLocationNormalized
   from: RouteLocationNormalized
   next: NavigationGuardNext
-  store: typeof store
+  useCounterStore: typeof useCounterStore
 }
 
 export interface NextMiddleware {
@@ -96,7 +96,7 @@ router.beforeEach((to, from, next) => {
     to,
     from,
     next,
-    store,
+    useCounterStore,
   }
   return middleware[0]({
     ...context,

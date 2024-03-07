@@ -2,13 +2,13 @@
   <div class="header">
     <div class="header-nav">
       <RouterLink :to="{ name: ROUTE_NAMES.HOME_PAGE }">
-        {{ $t("homePage") }}
+        {{ $t('homePage') }}
       </RouterLink>
       <RouterLink :to="{ name: ROUTE_NAMES.ABOUT_PAGE }">
-        {{ $t("aboutPage") }}
+        {{ $t('aboutPage') }}
       </RouterLink>
     </div>
-    <LanguageSwitcher />
+    <!-- <LanguageSwitcher /> -->
     <div class="header__btns">
       <button class="header-button" @click="switchLangRu">RU</button>
       <button class="header-button" @click="switchLangEn">EN</button>
@@ -17,19 +17,19 @@
 </template>
 
 <script lang="ts" setup>
-import { useI18n } from "vue-i18n"
-import { ROUTE_NAMES } from "@/constants/RouteNames"
-import LanguageSwitcher from "@/components/CHeader/LanguageSwitcher.vue"
-const { locale } = useI18n({ useScope: "global" })
+import { useI18n } from 'vue-i18n'
+import { ROUTE_NAMES } from '@/constants/RouteNames'
+// import LanguageSwitcher from "@/components/CHeader/LanguageSwitcher.vue"
+const { locale } = useI18n({ useScope: 'global' })
 
 const switchLangRu = () => {
-  locale.value = "ru"
-  localStorage.setItem("lang", locale.value)
+  locale.value = 'ru'
+  localStorage.setItem('lang', locale.value)
 }
 
 const switchLangEn = () => {
-  locale.value = "en"
-  localStorage.setItem("lang", locale.value)
+  locale.value = 'en'
+  localStorage.setItem('lang', locale.value)
 }
 </script>
 
