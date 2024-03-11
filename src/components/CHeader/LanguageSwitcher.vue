@@ -13,8 +13,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useI18n } from "vue-i18n"
-import Tr from "@/i18n/translation"
+import { useI18n } from 'vue-i18n'
+import Tr from '@/i18n/translation'
 
 const { locale } = useI18n()
 

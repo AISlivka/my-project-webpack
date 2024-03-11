@@ -8,10 +8,9 @@
         {{ $t('aboutPage') }}
       </RouterLink>
     </div>
-    <!-- <LanguageSwitcher /> -->
     <div class="header__btns">
-      <button class="header-button" @click="switchLangRu">RU</button>
-      <button class="header-button" @click="switchLangEn">EN</button>
+      <button class="header-button" @click="switchLanguage('ru')">RU</button>
+      <button class="header-button" @click="switchLanguage('en')">EN</button>
     </div>
   </div>
 </template>
@@ -19,17 +18,14 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { ROUTE_NAMES } from '@/constants/RouteNames'
-// import LanguageSwitcher from "@/components/CHeader/LanguageSwitcher.vue"
+import { useRouter } from 'vue-router'
 const { locale } = useI18n({ useScope: 'global' })
 
-const switchLangRu = () => {
-  locale.value = 'ru'
+const router = useRouter()
+function switchLanguage(lang: string) {
+  locale.value = lang
   localStorage.setItem('lang', locale.value)
-}
-
-const switchLangEn = () => {
-  locale.value = 'en'
-  localStorage.setItem('lang', locale.value)
+  router.replace({ params: { lang } })
 }
 </script>
 

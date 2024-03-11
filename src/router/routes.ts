@@ -5,28 +5,28 @@ import {
   RouteLocationNormalized,
   NavigationGuardNext,
   RouterView,
+  createWebHashHistory,
 } from 'vue-router'
 import { ROUTE_NAMES } from '@/constants/RouteNames'
 import { useCounterStore } from '@/store'
+import EmptyRouterVue from '@/components/EmptyRouterVue.vue'
 
 import HomePage from '@/components/pages/HomePage.vue'
 import AboutPage from '@/components/pages/AboutPage.vue'
-import LoginPage from '@/components/pages/LoginPage.vue'
-import MoviesPage from '@/components/pages/MoviesPage.vue'
-import DashboardPage from '@/components/pages/DashboardPage.vue'
+// import LoginPage from '@/components/pages/LoginPage.vue'
+// import MoviesPage from '@/components/pages/MoviesPage.vue'
+// import DashboardPage from '@/components/pages/DashboardPage.vue'
 
-import guest from '@/router/middleware/guest'
-import auth from '@/router/middleware/auth'
-import isSubscribed from '@/router/middleware/isSubscribed'
+// import guest from '@/router/middleware/guest'
+// import auth from '@/router/middleware/auth'
+// import isSubscribed from '@/router/middleware/isSubscribed'
 import middlewarePipeline from '@/router/middlewarePipeline'
-
-// import Tr from '@/i18n/translation'
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/:locale?',
-    component: RouterView,
-    // beforeEnter: Tr.routeMiddleware,
+    path: '/:lang',
+    component: EmptyRouterVue,
+    props: true,
     children: [
       {
         path: '',
@@ -38,38 +38,12 @@ const routes: RouteRecordRaw[] = [
         name: ROUTE_NAMES.ABOUT_PAGE,
         component: AboutPage,
       },
-      {
-        path: 'login-page',
-        name: ROUTE_NAMES.LOGIN_PAGE,
-        component: LoginPage,
-        meta: {
-          middleware: [guest],
-        },
-      },
-      {
-        path: 'dashboard',
-        name: ROUTE_NAMES.DASHBOARD_PAGE,
-        component: DashboardPage,
-        meta: {
-          middleware: [auth],
-        },
-        children: [
-          {
-            path: 'dashboard/movies',
-            name: ROUTE_NAMES.MOVIES_PAGE,
-            component: MoviesPage,
-            meta: {
-              middleware: [auth, isSubscribed],
-            },
-          },
-        ],
-      },
     ],
   },
 ]
 
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHashHistory('/'),
   routes,
 })
 
