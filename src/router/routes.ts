@@ -64,8 +64,9 @@ export type MiddlewareFunction = (options: UnionMiddlewareContext) => void
 
 router.beforeEach((to, from, next) => {
   const lang = localStorage.getItem('lang')
+  console.log(to.fullPath)
   if (lang === 'ru' && !to.fullPath.includes('/ru')) {
-    next('/ru' + to.fullPath)
+    next(lang)
   } else {
     next()
   }
