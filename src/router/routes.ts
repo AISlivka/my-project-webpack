@@ -1,15 +1,13 @@
 import {
   createRouter,
-  createWebHistory,
   RouteRecordRaw,
   RouteLocationNormalized,
   NavigationGuardNext,
   RouterView,
-  createWebHashHistory,
+  createWebHistory,
 } from 'vue-router'
 import { ROUTE_NAMES } from '@/constants/RouteNames'
 import { useCounterStore } from '@/store'
-import EmptyRouterVue from '@/components/EmptyRouterVue.vue'
 
 import HomePage from '@/components/pages/HomePage.vue'
 import AboutPage from '@/components/pages/AboutPage.vue'
@@ -25,8 +23,11 @@ import middlewarePipeline from '@/router/middlewarePipeline'
 const routes: RouteRecordRaw[] = [
   {
     path: '/:lang',
-    component: EmptyRouterVue,
-    props: true,
+    component: RouterView,
+    // beforeEnter: (to, from, next) => {
+    //   console.log(to.params.lang)
+    //   next({ path: 'paramsLocale' })
+    // },
     children: [
       {
         path: '',
@@ -43,7 +44,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory('/'),
+  history: createWebHistory(),
   routes,
 })
 
@@ -62,20 +63,31 @@ export type UnionMiddlewareContext = NextMiddleware & MiddlewareContext
 export type MiddlewareFunction = (options: UnionMiddlewareContext) => void
 
 router.beforeEach((to, from, next) => {
-  if (!to.meta.middleware) {
-    return next()
+  const lang = localStorage.getItem('lang')
+  if (lang === 'ru' && !to.fullPath.includes('/ru')) {
+    next('/ru' + to.fullPath)
+  } else {
+    next()
   }
-  const middleware = to.meta.middleware as MiddlewareFunction[]
-  const context: MiddlewareContext = {
-    to,
-    from,
-    next,
-    useCounterStore,
-  }
-  return middleware[0]({
-    ...context,
-    nextMiddleware: middlewarePipeline(context, middleware, 1),
-  })
+  // if (!(localStorage.getItem('lang') === 'ru')) {
+  //   console.log('ru')
+  //   return next({ path: '/ru' })
+  // }
+  // if (!to.meta.middleware) {
+  //   return next()
+  // }
+
+  // const middleware = to.meta.middleware as MiddlewareFunction[]
+  // const context: MiddlewareContext = {
+  //   to,
+  //   from,
+  //   next,
+  //   useCounterStore,
+  // }
+  // return middleware[0]({
+  //   ...context,
+  //   nextMiddleware: middlewarePipeline(context, middleware, 1),
+  // })
 })
 
 export default router

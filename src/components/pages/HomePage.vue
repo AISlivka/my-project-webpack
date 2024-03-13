@@ -6,7 +6,7 @@
       СТРАНИЦА ABOUT
     </RouterLink>
   </div>
-  <div>
+  <!-- <div>
     <RouterLink to="/login-page"> СТРАНИЦА LOGIN </RouterLink>
   </div>
   <div>
@@ -14,7 +14,7 @@
   </div>
   <div>
     <RouterLink to="/dashboard/movies"> СТРАНИЦА DASHBOARD/MOVIES </RouterLink>
-  </div>
+  </div> -->
 
   <!-- <div class="home-page">
     <h2>Fetch API</h2>
