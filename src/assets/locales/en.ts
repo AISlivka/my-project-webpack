@@ -1,14 +1,16 @@
-import { I18nLocale } from "@/assets/locales/I18nLocale"
+import { I18nLocale } from '@/assets/locales/I18nLocale'
 
 export const en: I18nLocale = {
   locale: {
-    en: "English",
-    ru: "Russian",
+    en: 'English',
+    ru: 'Russian',
   },
-  title: "English Title",
-  switchLang: "Switch lang",
-  testSvg: "Test SVG",
-  homePage: "Home",
-  aboutPage: "About",
-  testPage: "test page",
+  title: 'English Title',
+  switchLang: 'Switch lang',
+  testSvg: 'Test SVG',
+  homePage: 'Home',
+  aboutPage: 'About',
+  loginPage: 'Log in',
+  userPage: 'Profile',
+  testPage: 'test page',
 }

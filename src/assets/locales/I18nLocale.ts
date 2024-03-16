@@ -8,5 +8,7 @@ export interface I18nLocale {
   testSvg: string
   homePage: string
   aboutPage: string
+  loginPage: string
+  userPage: string
   testPage: string
 }

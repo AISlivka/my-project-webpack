@@ -7,10 +7,12 @@ import {
   createWebHistory,
 } from 'vue-router'
 import { ROUTE_NAMES } from '@/constants/RouteNames'
-import { useCounterStore } from '@/store'
+import { useUserStore } from '@/store'
 
 import HomePage from '@/components/pages/HomePage.vue'
 import AboutPage from '@/components/pages/AboutPage.vue'
+import LoginPage from '@/components/pages/LoginPage.vue'
+import UserPage from '@/components/pages/UserPage.vue'
 // import LoginPage from '@/components/pages/LoginPage.vue'
 // import MoviesPage from '@/components/pages/MoviesPage.vue'
 // import DashboardPage from '@/components/pages/DashboardPage.vue'
@@ -18,16 +20,12 @@ import AboutPage from '@/components/pages/AboutPage.vue'
 // import guest from '@/router/middleware/guest'
 // import auth from '@/router/middleware/auth'
 // import isSubscribed from '@/router/middleware/isSubscribed'
-import middlewarePipeline from '@/router/middlewarePipeline'
+// import middlewarePipeline from '@/router/authMiddleware'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/:lang',
     component: RouterView,
-    // beforeEnter: (to, from, next) => {
-    //   console.log(to.params.lang)
-    //   next({ path: 'paramsLocale' })
-    // },
     children: [
       {
         path: '',
@@ -39,6 +37,18 @@ const routes: RouteRecordRaw[] = [
         name: ROUTE_NAMES.ABOUT_PAGE,
         component: AboutPage,
       },
+      {
+        path: 'login-page',
+        name: ROUTE_NAMES.LOGIN_PAGE,
+        component: LoginPage,
+        meta: { requiresAuth: false },
+      },
+      {
+        path: 'user-page',
+        name: ROUTE_NAMES.USER_PAGE,
+        component: UserPage,
+        meta: { requiresAuth: true },
+      },
     ],
   },
 ]
@@ -48,25 +58,35 @@ const router = createRouter({
   routes,
 })
 
-export interface MiddlewareContext {
-  to: RouteLocationNormalized
-  from: RouteLocationNormalized
-  next: NavigationGuardNext
-  useCounterStore: typeof useCounterStore
-}
+// export interface MiddlewareContext {
+//   to: RouteLocationNormalized
+//   from: RouteLocationNormalized
+//   next: NavigationGuardNext
+//   useCounterStore: typeof useCounterStore
+// }
 
-export interface NextMiddleware {
-  nextMiddleware: () => void
-}
+// export interface NextMiddleware {
+//   nextMiddleware: () => void
+// }
 
-export type UnionMiddlewareContext = NextMiddleware & MiddlewareContext
-export type MiddlewareFunction = (options: UnionMiddlewareContext) => void
+// export type UnionMiddlewareContext = NextMiddleware & MiddlewareContext
+// export type MiddlewareFunction = (options: UnionMiddlewareContext) => void
 
 router.beforeEach((to, from, next) => {
   const lang = localStorage.getItem('lang')
-  console.log(to.fullPath)
+
+  // console.log(to.fullPath)
+
   if (lang === 'ru' && !to.fullPath.includes('/ru')) {
     next(lang)
+  } else {
+    next()
+  }
+
+  const store = useUserStore()
+  if ((to.meta.requiresAuth as Boolean) && !store.isLoggedIn) {
+    // Если пользователь не авторизован, перенаправляем на страницу логина
+    next({ name: ROUTE_NAMES.LOGIN_PAGE })
   } else {
     next()
   }

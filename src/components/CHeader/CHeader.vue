@@ -7,6 +7,12 @@
       <RouterLink :to="{ name: ROUTE_NAMES.ABOUT_PAGE }">
         {{ $t('aboutPage') }}
       </RouterLink>
+      <RouterLink :to="{ name: ROUTE_NAMES.LOGIN_PAGE }">
+        {{ $t('loginPage') }}
+      </RouterLink>
+      <RouterLink :to="{ name: ROUTE_NAMES.USER_PAGE }">
+        {{ $t('userPage') }}
+      </RouterLink>
     </div>
     <div class="header__btns">
       <button class="header-button" @click="switchLanguage('ru')">RU</button>

@@ -1,7 +1,7 @@
 <template>
   <CHeader></CHeader>
   <div>
-    <p>This is the Login component</p>
+    <p>This is the User component</p>
   </div>
 </template>
 
