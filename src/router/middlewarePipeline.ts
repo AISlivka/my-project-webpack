@@ -1,20 +1,30 @@
-import { MiddlewareContext, MiddlewareFunction } from './routes'
+// import { defineStore } from 'pinia'
+// import { useRoute, useRouter } from 'vue-router'
 
-function middlewarePipeline(
-  context: MiddlewareContext,
-  middleware: MiddlewareFunction[],
-  index: number,
-) {
-  const nextMiddleware = middleware[index]
+// export const useAuthMiddleware = defineStore({
+//   id: 'auth',
+//   state: () => ({
+//     isAuthenticated: false,
+//     isGuest: false,
+//   }),
+//   actions: {
+//     checkAuthAndGuestStatus() {
+//       const route = useRoute()
+//       const router = useRouter()
 
-  if (!nextMiddleware) {
-    return context.next
-  }
-
-  return () => {
-    const nextPipeline = middlewarePipeline(context, middleware, index + 1)
-    nextMiddleware({ ...context, nextMiddleware: nextPipeline })
-  }
-}
-
-export default middlewarePipeline
+//       if (this.isAuthenticated && this.isGuest) {
+//         if (route.name === 'auth') {
+//           router.push('/dashboard')
+//         }
+//       } else if (!this.isAuthenticated && !this.isGuest) {
+//         if (route.name !== 'auth') {
+//           router.push('/login')
+//         }
+//       } else if (!this.isAuthenticated && this.isGuest) {
+//         if (route.name !== 'guest') {
+//           router.push('/guest')
+//         }
+//       }
+//     },
+//   },
+// })
