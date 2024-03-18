@@ -1,8 +1,6 @@
 import {
   createRouter,
   RouteRecordRaw,
-  RouteLocationNormalized,
-  NavigationGuardNext,
   RouterView,
   createWebHistory,
 } from 'vue-router'
@@ -13,15 +11,6 @@ import HomePage from '@/components/pages/HomePage.vue'
 import AboutPage from '@/components/pages/AboutPage.vue'
 import LoginPage from '@/components/pages/LoginPage.vue'
 import UserPage from '@/components/pages/UserPage.vue'
-// import LoginPage from '@/components/pages/LoginPage.vue'
-// import MoviesPage from '@/components/pages/MoviesPage.vue'
-// import DashboardPage from '@/components/pages/DashboardPage.vue'
-
-// import guest from '@/router/middleware/guest'
-// import auth from '@/router/middleware/auth'
-// import isSubscribed from '@/router/middleware/isSubscribed'
-// import middlewarePipeline from '@/router/authMiddleware'
-
 const routes: RouteRecordRaw[] = [
   {
     path: '/:lang',
@@ -51,6 +40,10 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/',
+    redirect: localStorage.getItem('lang'),
+  },
 ]
 
 const router = createRouter({
@@ -58,57 +51,20 @@ const router = createRouter({
   routes,
 })
 
-// export interface MiddlewareContext {
-//   to: RouteLocationNormalized
-//   from: RouteLocationNormalized
-//   next: NavigationGuardNext
-//   useCounterStore: typeof useCounterStore
-// }
-
-// export interface NextMiddleware {
-//   nextMiddleware: () => void
-// }
-
-// export type UnionMiddlewareContext = NextMiddleware & MiddlewareContext
-// export type MiddlewareFunction = (options: UnionMiddlewareContext) => void
-
 router.beforeEach((to, from, next) => {
   const lang = localStorage.getItem('lang')
 
-  // console.log(to.fullPath)
-
   if (lang === 'ru' && !to.fullPath.includes('/ru')) {
-    next(lang)
-  } else {
-    next()
+    return next(lang)
   }
 
   const store = useUserStore()
   if ((to.meta.requiresAuth as Boolean) && !store.isLoggedIn) {
-    // Если пользователь не авторизован, перенаправляем на страницу логина
+    // Если requiresAuth === false, перенаправляем на страницу логина
     next({ name: ROUTE_NAMES.LOGIN_PAGE })
   } else {
     next()
   }
-  // if (!(localStorage.getItem('lang') === 'ru')) {
-  //   console.log('ru')
-  //   return next({ path: '/ru' })
-  // }
-  // if (!to.meta.middleware) {
-  //   return next()
-  // }
-
-  // const middleware = to.meta.middleware as MiddlewareFunction[]
-  // const context: MiddlewareContext = {
-  //   to,
-  //   from,
-  //   next,
-  //   useCounterStore,
-  // }
-  // return middleware[0]({
-  //   ...context,
-  //   nextMiddleware: middlewarePipeline(context, middleware, 1),
-  // })
 })
 
 export default router

@@ -33,6 +33,8 @@ function switchLanguage(lang: string) {
   localStorage.setItem('lang', locale.value)
   router.replace({ params: { lang } })
 }
+
+locale.value = localStorage.getItem('lang')
 </script>
 
 <style>
